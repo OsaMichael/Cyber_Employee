@@ -21,7 +21,7 @@ namespace Cyber_Employee.Controllers
         {
             _context = context;
         }
-
+        //the computePay read data from the excel folder
         [HttpGet]
         public ActionResult ComputePaye()
         {
@@ -42,117 +42,119 @@ namespace Cyber_Employee.Controllers
             return View();
 
         }
-        //public ActionResult Compute()
-        //{
-        //    return View();
-        //}                                                                       
 
-        //[HttpPost]
-        //public ActionResult Compute(decimal Salary)
-        //{
-        //    Decimal  tax1, tax2, tax3, tax4, tax5, tax6 = 0;
-        //    Decimal totaldeduction, balance = 0;
-        //    Decimal[] tax = new Decimal[6];
+        // the compute action read the data from the database whhile the computePay read data from the excel folder
+        public ActionResult Compute()
+        {
+            return View();
+        }
 
-
-        //    Decimal takehome = 0;
-
-        //    Decimal[] total = new Decimal[6];
-
-        //    var myarray = _context.GetRatings();
-            
-        //    //int row = 6, col = 2;
-        //    //Decimal[,] myarray = new Decimal[row, col];
-        //    //myarray[0, 0] = 25000; myarray[0, 1] = 7;//rate
-
-        //    //myarray[1, 0] = 25000; myarray[1, 1] = 11;
-
-        //    //myarray[2, 0] = 41666; myarray[2, 1] = 15;
-
-        //    //myarray[3, 0] = 41666; myarray[3, 1] = 19;
-
-        //    //myarray[4, 0] = 133333; myarray[4, 1] = 21;
-
-        //    //myarray[5, 0] = 266666; myarray[5, 1] = 24;
-
-        //    if (Salary > myarray.Result[0].Amount)
-        //    {
-        //        tax1 = (myarray.Result[0].Amount * (myarray.Result[0].RatePercentage)/100);
-        //        balance = Salary - myarray.Result[0].Amount;
-        //        tax[0] = tax1;
-        //        total[0] = tax1;
-        //        takehome = Salary - tax1;
-        //        if (balance > myarray.Result[1].Amount)
-        //        {
-        //            balance = balance - myarray.Result[1].Amount;
-        //            tax2 = (myarray.Result[1].Amount * (myarray.Result[1].RatePercentage) / 100);
-        //            totaldeduction = tax1 + tax2;
-        //            total[1] = totaldeduction;
-        //            tax[1] += tax2;
-        //            takehome = Salary - total[1];
-        //            if (balance > myarray.Result[2].Amount)
-        //            {
-        //                balance = balance - myarray.Result[2].Amount;
-        //                tax3 = (myarray.Result[2].Amount * (myarray.Result[2].RatePercentage) / 100);
-        //                totaldeduction = tax1 + tax2 + tax3;
-        //                total[2] = totaldeduction;
-        //                tax[2] += tax3;
-        //                takehome = Salary - total[2];
-        //                if (balance > myarray.Result[3].Amount)
-        //                {
-        //                    balance = balance - myarray.Result[3].Amount;
-        //                    tax4 = (myarray.Result[3].Amount * (myarray.Result[3].RatePercentage) / 100);
-        //                    totaldeduction = tax1 + tax2 + tax3 + tax4;
-        //                    total[3] = totaldeduction;
-        //                    tax[3] += tax4;
-        //                    takehome = Salary - total[3];
-
-        //                    if (balance > myarray.Result[4].Amount)
-        //                    {
-        //                        balance = balance - myarray.Result[4].Amount;
-        //                        tax5 = (myarray.Result[4].Amount * (myarray.Result[4].RatePercentage) / 100);
-        //                        totaldeduction = tax1 + tax2 + tax3 + tax4 + tax5;
-        //                        total[4] = totaldeduction;
-        //                        takehome = Salary - total[4];
-        //                        tax[4] += tax5;
-        //                        if (balance > myarray.Result[5].Amount)
-        //                        {
-        //                            balance = balance - myarray.Result[5].Amount;
-        //                            tax6 = (myarray.Result[5].Amount * (myarray.Result[5].RatePercentage) / 100);
-        //                            totaldeduction = tax1 + tax2 + tax3 + tax4 + tax5 + tax6;
-        //                            tax[5] += tax6;
-
-        //                            total[5] = totaldeduction;
-        //                            takehome = Salary - total[5];
-        //                        }
-        //                    }
-        //                }
-        //            }
-
-        //        }
+        [HttpPost]
+        public ActionResult Compute(decimal Salary)
+        {
+            Decimal tax1, tax2, tax3, tax4, tax5, tax6 = 0;
+            Decimal totaldeduction, balance = 0;
+            Decimal[] tax = new Decimal[6];
 
 
-        //        for (int j = 0; j < tax.Length; j++)
-        //        {
-        //            if (tax[j] == 0)
-        //                break;
-        //            //Console.Write("tax = {0}", tax[j]);
-        //            //Console.WriteLine("Commulative tax = " + total[j] + "  ");
-        //            //Console.WriteLine("Balance = " + balance);
-        //            //Console.WriteLine("takehome = " + takehome);
+            Decimal takehome = 0;
 
-        //            ViewBag.Tax = total[j];
+            Decimal[] total = new Decimal[6];
 
-        //        }
+            var myarray = _context.GetRatings();
+
+            //int row = 6, col = 2;
+            //Decimal[,] myarray = new Decimal[row, col];
+            //myarray[0, 0] = 25000; myarray[0, 1] = 7;//rate
+
+            //myarray[1, 0] = 25000; myarray[1, 1] = 11;
+
+            //myarray[2, 0] = 41666; myarray[2, 1] = 15;
+
+            //myarray[3, 0] = 41666; myarray[3, 1] = 19;
+
+            //myarray[4, 0] = 133333; myarray[4, 1] = 21;
+
+            //myarray[5, 0] = 266666; myarray[5, 1] = 24;
+
+            if (Salary > myarray.Result[0].Amount)
+            {
+                tax1 = (myarray.Result[0].Amount * (myarray.Result[0].RatePercentage) / 100);
+                balance = Salary - myarray.Result[0].Amount;
+                tax[0] = tax1;
+                total[0] = tax1;
+                takehome = Salary - tax1;
+                if (balance > myarray.Result[1].Amount)
+                {
+                    balance = balance - myarray.Result[1].Amount;
+                    tax2 = (myarray.Result[1].Amount * (myarray.Result[1].RatePercentage) / 100);
+                    totaldeduction = tax1 + tax2;
+                    total[1] = totaldeduction;
+                    tax[1] += tax2;
+                    takehome = Salary - total[1];
+                    if (balance > myarray.Result[2].Amount)
+                    {
+                        balance = balance - myarray.Result[2].Amount;
+                        tax3 = (myarray.Result[2].Amount * (myarray.Result[2].RatePercentage) / 100);
+                        totaldeduction = tax1 + tax2 + tax3;
+                        total[2] = totaldeduction;
+                        tax[2] += tax3;
+                        takehome = Salary - total[2];
+                        if (balance > myarray.Result[3].Amount)
+                        {
+                            balance = balance - myarray.Result[3].Amount;
+                            tax4 = (myarray.Result[3].Amount * (myarray.Result[3].RatePercentage) / 100);
+                            totaldeduction = tax1 + tax2 + tax3 + tax4;
+                            total[3] = totaldeduction;
+                            tax[3] += tax4;
+                            takehome = Salary - total[3];
+
+                            if (balance > myarray.Result[4].Amount)
+                            {
+                                balance = balance - myarray.Result[4].Amount;
+                                tax5 = (myarray.Result[4].Amount * (myarray.Result[4].RatePercentage) / 100);
+                                totaldeduction = tax1 + tax2 + tax3 + tax4 + tax5;
+                                total[4] = totaldeduction;
+                                takehome = Salary - total[4];
+                                tax[4] += tax5;
+                                if (balance > myarray.Result[5].Amount)
+                                {
+                                    balance = balance - myarray.Result[5].Amount;
+                                    tax6 = (myarray.Result[5].Amount * (myarray.Result[5].RatePercentage) / 100);
+                                    totaldeduction = tax1 + tax2 + tax3 + tax4 + tax5 + tax6;
+                                    tax[5] += tax6;
+
+                                    total[5] = totaldeduction;
+                                    takehome = Salary - total[5];
+                                }
+                            }
+                        }
+                    }
+
+                }
 
 
-        //    }
+                for (int j = 0; j < tax.Length; j++)
+                {
+                    if (tax[j] == 0)
+                        break;
+                    //Console.Write("tax = {0}", tax[j]);
+                    //Console.WriteLine("Commulative tax = " + total[j] + "  ");
+                    //Console.WriteLine("Balance = " + balance);
+                    //Console.WriteLine("takehome = " + takehome);
 
-        //    ViewBag.Balance = balance;
+                    ViewBag.Tax = total[j];
+
+                }
 
 
-        //    return View();
-        //}
+            }
+
+            ViewBag.Balance = balance;
+
+
+            return View();
+        }
 
         public ActionResult Index()
         {

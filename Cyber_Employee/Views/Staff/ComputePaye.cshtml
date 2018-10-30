@@ -1,0 +1,79 @@
+﻿@model Cyber_Employee.Models.SalaryModel
+@{
+    ViewBag.Title = "ComputePaye";
+}
+
+<h2>ComputePaye</h2>
+
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-12">
+                <!-- /.card -->
+                <div class="card">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Compute Salary</h4>
+                            </div>
+                            <div class="modal-body">
+                                @using (Html.BeginForm("ComputePaye", "Staff", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    @Html.HiddenFor(model => model.Id)
+                                   
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.salary, htmlAttributes: new { @class = "control-label col-md-6" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.salary, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.salary, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-success" onclick="myFunction()">Compute</button>
+                                        <button class="btn btn-success" data-dismiss="modal">Close</button>
+                                    </div>
+
+                                }
+                                <p id="demo">Your net pay is @ViewBag.balance after removing @ViewBag.tax tax</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <section>
+        <div class="card">
+            <div class="card-body">
+                <table id="DeptTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr class="remove">
+                            <th style="width:10%">S/N</th>
+                            <th style="width:20%">Take Home </th>
+                            <th style="width:20%">Cummulative Tax</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td> @ViewBag.balance</td>
+                            <td>@ViewBag.tax</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<script>function myFunction() {
+        document.getElementById("demo").innerHTML;
+    }</script>

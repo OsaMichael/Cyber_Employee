@@ -1,0 +1,19 @@
+﻿@{ 
+    ViewBag.Title = "Compute";
+}
+<h1></h1>
+<h1></h1>
+@Html.BeginForm("Compute", "Staff", FormMethod.Post){
+<input type="text" name="salary" />
+<input type="submit" name="Compute" />
+}
+
+@{
+    if (ViewBag.Balance != null)
+    {
+        <h3>Tax = @ViewBag.Tax </h3>
+        <h3>Take Home = @ViewBag.Balance </h3>
+
+
+    }
+}
